@@ -150,7 +150,7 @@
       <button style="background:#000088;color:#FF0000;font-weight:bold;text-shadow:0 0 6px #400000;border:3px solid #0000FF;border-radius:8px"
               onclick="scrollAdjEnc()">IR PRA CRIPTAR</button>
       <button style="background:#000088;color:#00FF00;font-weight:bold;text-shadow:0 0 6px #004000;border:3px solid #0000FF;border-radius:8px"
-              onclick="scrollAdjDec()">IR PRA DESCRIPTAR</button>
+              onclick="scrollAdjDec()">IR PRA DECRIPTAR</button>
     </div>
 
     <h1 class="h1-enc">CRIPTAR MENSAGEM</h1>
@@ -158,7 +158,7 @@
     <!-- div id="sec-enc" class="card anchor" -->
     <div id="sec-enc" class="card anchor card-remetente">
 
-      <label for="plain">MENSAGEM PRA SER CRIPTADA)</label>
+      <label for="plain">MENSAGEM PRA SER CRIPTADA</label>
       <textarea id="plain" style="background:#000088;color:#AAAAAA;border:3px solid #0000FF; placeholder="Digite a mensagem aqui..."></textarea>
 
       <div class="row" style="margin-top:8px">
@@ -166,7 +166,7 @@
           <div style="display:flex;align-items:center;gap:8px">
             <label for="passEncrypt" style="margin-bottom:0">SENHA</label>
             <label class="small" style="display:flex;align-items:center;gap:4px;margin-bottom:0">
-            <input id="passEncrypt" type="text" placeholder="senha pra criptografar">
+            <input id="passEncrypt" type="text" placeholder="senha pra criptar">
             <input id="toggleShowEnc" type="checkbox"> OCULTAR </label>
           </div>
         </div>
@@ -182,15 +182,12 @@
         <span style="font-size:16px;color:#006BC5;">
           TEXTO CRIPTADO
         </span>
-        <span style="font-size:16px;color:#888888;">
-          [ ENVIAR PRO 'TELEGRAM' OU 'WHATSAPP' EXATAMENTE COMO ESTA]
-        </span>
       </div>
       <div id="encOut" class="output"></div>
 
     </div>
 
-    <h1 class="h1-dec">DESCRIPTAR MENSAGEM</h1>
+    <h1 class="h1-dec">DECRIPTAR MENSAGEM</h1>
 
     <div id="sec-dec" class="card anchor card-destinatario">
 
@@ -202,21 +199,21 @@
           <div style="display:flex;align-items:center;gap:8px">
             <label for="passDecrypt" style="margin-bottom:0">SENHA</label>
             <label class="small" style="display:flex;align-items:center;gap:4px;margin-bottom:0">
-            <input id="passDecrypt" type="text" placeholder="senha pra descriptografar">
+            <input id="passDecrypt" type="text" placeholder="senha pra decriptar">
             <input id="toggleShowEnc" type="checkbox"> OCULTAR </label>
           </div>
         </div>
       </div>
 
       <div class="actions">
-        <button id="btnDecrypt"   style="background:#000077;color:#006BC5;font-weight:bold;text-shadow:0 0 6px #400000;border:3px solid #0000FF;border-radius:8px" onclick="scrollToSection('sec-enc')">DESCRIPT</button>
+        <button id="btnDecrypt"   style="background:#000077;color:#006BC5;font-weight:bold;text-shadow:0 0 6px #400000;border:3px solid #0000FF;border-radius:8px" onclick="scrollToSection('sec-enc')">DECRIPT</button>
         <button id="btnCopyDec"   style="background:#000077;color:#006BC5;font-weight:bold;text-shadow:0 0 6px #400000;border:3px solid #0000FF;border-radius:8px" onclick="scrollToSection('sec-enc')" disabled>COPIAR</button>
         <button id="btnReEncrypt" style="background:#000077;color:#006BC5;font-weight:bold;text-shadow:0 0 6px #400000;border:3px solid #0000FF;border-radius:8px" onclick="scrollToSection('sec-enc')" disabled>RE-CRIPT</button>
       </div>
 
       <div style="margin-top:16px;margin-bottom:10px;display:flex;align-items:center;gap:24px">
         <span style="font-size:16px;color:#006BC5;">
-          TEXTO DESCRIPTADO
+          TEXTO DECRIPTADO
         </span>
       </div>
       <div id="encOut" class="output"></div>
@@ -224,8 +221,16 @@
     </div>
 
     <div class="RHAONE">
-      <!-- RHAONE MOAJ - 2025-12-09_084547 *** CRIPT = AES-GCM + PBKDF2 + BASE64URL -->
-       RHAONE MOAJ - 2025-12-11_221722 *** CRIPT = AES-GCM + PBKDF2 + BASE64URL
+       RHAONE MOAJ - 2025-12-11_221722
+      <br>
+
+      <div style="margin-top:14px;">
+        CRIPT = AES-GCM + PBKDF2 + BASE64URL
+      </div>
+
+      <span style="font-size:10px;color:#CCCC00;">
+        <br>[ ENVIAR PRO 'TELEGRAM' OU 'WHATSAPP' EXATAMENTE COMO ESTA]
+      </span>
     </div>
 
   </div>
@@ -295,10 +300,10 @@
         document.getElementById('btnReEncrypt').disabled = false;
       } catch (err){
         console.error('ERRO DECRYPT', err);
-        alert('FALHA AO DESCRIPTAR - SENHA OU CONTEUDO INVALIDO');
+        alert('FALHA AO DECRIPTAR - SENHA OU CONTEUDO INVALIDO');
       } finally {
         const btn = document.getElementById('btnDecrypt');
-        btn.disabled = false; btn.textContent = 'DESCRIPTOGRAFAR';
+        btn.disabled = false; btn.textContent = 'DECRIPTAR';
       }
     });
 
