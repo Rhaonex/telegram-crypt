@@ -8,7 +8,7 @@
 
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Mensagem Criptografada - Enviar/Receber</title>
+  <title>Mensagem Criptada - Enviar/Receber</title>
 
   <style>
 
@@ -138,6 +138,11 @@
       scroll-margin-top:-80px;
     }
 
+    .TEXTO_PADRAO {
+      display:block;
+      margin-left:8px;
+    }
+
   </style>
 
 </head>
@@ -148,50 +153,57 @@
 
     <div class="menu" style="display:flex;justify-content:center;gap:12px;margin-top:12px">
       <button style="background:#000088;color:#FF0000;font-weight:bold;text-shadow:0 0 6px #400000;border:3px solid #0000FF;border-radius:8px"
-              onclick="scrollAdjEnc()">IR PRA CRIPTAR</button>
+              onclick="scrollAdjEnc()">IR PRA CRIPT</button>
       <button style="background:#000088;color:#00FF00;font-weight:bold;text-shadow:0 0 6px #004000;border:3px solid #0000FF;border-radius:8px"
-              onclick="scrollAdjDec()">IR PRA DECRIPTAR</button>
+              onclick="scrollAdjDec()">IR PRA DECRIPT</button>
     </div>
 
-    <h1 class="h1-enc">CRIPTAR MENSAGEM</h1>
+    <h1 class="h1-enc">CRIPT MENSAGEM</h1>
 
     <!-- div id="sec-enc" class="card anchor" -->
     <div id="sec-enc" class="card anchor card-remetente">
 
-      <label for="plain">MENSAGEM PRA SER CRIPTADA</label>
+      <label for="plain" class="TEXTO_PADRAO">
+        MENSAGEM PRA SER CRIPTADA
+      </label>
+
       <textarea id="plain" style="background:#000088;color:#AAAAAA;border:3px solid #0000FF; placeholder="Digite a mensagem aqui..."></textarea>
 
       <div class="row" style="margin-top:8px">
         <div class="half">
           <div style="display:flex;align-items:center;gap:8px">
-            <label for="passEncrypt" style="margin-bottom:0">SENHA</label>
+            <label for="passEncrypt" style="margin-bottom:0;margin-left:8px;">SENHA</label>
             <label class="small" style="display:flex;align-items:center;gap:4px;margin-bottom:0">
-            <input id="passEncrypt" type="text" placeholder="senha pra criptar">
-            <input id="toggleShowEnc" type="checkbox"> OCULTAR </label>
+            <input id="passEncrypt" type="text" placeholder="senha pra cript">
+            <input id="toggleShowEnc" type="checkbox" style="margin-left:12px;">OCULTAR</label>
           </div>
         </div>
       </div>
 
       <div class="actions">
-        <button id="btnEncrypt"     style="background:#000077;color:#006BC5;font-weight:bold;text-shadow:0 0 6px #400000;border:3px solid #0000FF;border-radius:8px" onclick="scrollToSection('sec-enc')">CRIPTAR</button>
+        <button id="btnEncrypt"     style="background:#000077;color:#006BC5;font-weight:bold;text-shadow:0 0 6px #400000;border:3px solid #0000FF;border-radius:8px" onclick="scrollToSection('sec-enc')">CRIPT</button>
         <button id="btnCopyEnc"     style="background:#000077;color:#006BC5;font-weight:bold;text-shadow:0 0 6px #400000;border:3px solid #0000FF;border-radius:8px" onclick="scrollToSection('sec-enc')">COPIAR</button>
         <button id="btnDownloadEnc" style="background:#000077;color:#006BC5;font-weight:bold;text-shadow:0 0 6px #400000;border:3px solid #0000FF;border-radius:8px" onclick="scrollToSection('sec-enc')">BAIXAR</button>
       </div>
 
       <div style="margin-top:16px;margin-bottom:10px;display:flex;align-items:center;gap:24px">
-        <span style="font-size:16px;color:#006BC5;">
+        <span class="TEXTO_PADRAO">
           TEXTO CRIPTADO
         </span>
       </div>
+
       <div id="encOut" class="output"></div>
 
     </div>
 
-    <h1 class="h1-dec">DECRIPTAR MENSAGEM</h1>
+    <h1 class="h1-dec">DECRIPT MENSAGEM</h1>
 
     <div id="sec-dec" class="card anchor card-destinatario">
 
-      <label for="cipherIn">COLE AQUI A MENSAGEM CRIPTADA</label>
+      <label for="cipherIn" class="TEXTO_PADRAO">
+        COLE AQUI A MENSAGEM CRIPTADA
+      </label>
+
       <textarea id="cipherIn" style="background:#000088;color:#AAAAAA;border:3px solid #0000FF; placeholder="cole aqui o conteudo recebido ..."></textarea>
 
       <div class="row" style="margin-top:8px">
@@ -199,7 +211,7 @@
           <div style="display:flex;align-items:center;gap:8px">
             <label for="passDecrypt" style="margin-bottom:0">SENHA</label>
             <label class="small" style="display:flex;align-items:center;gap:4px;margin-bottom:0">
-            <input id="passDecrypt" type="text" placeholder="senha pra decriptar">
+            <input id="passDecrypt" type="text" placeholder="senha pra decript">
             <input id="toggleShowEnc" type="checkbox"> OCULTAR </label>
           </div>
         </div>
@@ -224,13 +236,14 @@
        RHAONE MOAJ - 2025-12-11_221722
       <br>
 
+      <span style="font-size:10px;color:#CCCC00;">
+        <br>COPIAR E COLAR NO 'TELEGRAM' OU 'WHATSAPP' EXATAMENTE COMO ESTA
+      </span>
+
       <div style="margin-top:14px;">
         CRIPT = AES-GCM + PBKDF2 + BASE64URL
       </div>
 
-      <span style="font-size:10px;color:#CCCC00;">
-        <br>[ ENVIAR PRO 'TELEGRAM' OU 'WHATSAPP' EXATAMENTE COMO ESTA]
-      </span>
     </div>
 
   </div>
@@ -262,7 +275,7 @@
 
     document.getElementById('btnEncrypt').addEventListener('click', async ()=>{
       try{
-        if(!plainEl.value){ alert('ESCREVA A MENSAGEM PRA CRIPTAR'); return; }
+        if(!plainEl.value){ alert('ESCREVA A MENSAGEM PRA CRIPT'); return; }
         if(!passEncEl.value){ alert('INFORME UMA SENHA'); return; }
         const btn = document.getElementById('btnEncrypt');
         btn.disabled = true; btn.textContent = 'PROCESSANDO...';
@@ -272,17 +285,17 @@
         document.getElementById('btnCopyEnc').disabled = false;
       }catch(err){
         console.error('ERRO ENCRYPT', err);
-        alert('ERRO AO CRIPTOGRAFAR: ' + (err && err.message));
+        alert('ERRO AO CRIPTAR: ' + (err && err.message));
       }finally{
         const btn = document.getElementById('btnEncrypt');
-        btn.disabled = false; btn.textContent = 'CRIPTOGRAFAR';
+        btn.disabled = false; btn.textContent = 'CRIPTAR';
       }
     });
 
     document.getElementById('btnDownloadEnc').addEventListener('click', ()=>{
       const data = encOutEl.textContent || '';
       const blob = new Blob([data], {type: 'text/plain;charset=utf-8'});
-      const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'mensagem_criptografada.txt'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(a.href);
+      const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'MENSAGEM_CRIPTADA.TXT'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(a.href);
     });
 
     document.getElementById('btnCopyEnc').addEventListener('click', ()=> navigator.clipboard.writeText(encOutEl.textContent).then(()=>alert('TEXTO COPIADO'), ()=>alert('FALHA AO COPIAR')));
@@ -300,10 +313,10 @@
         document.getElementById('btnReEncrypt').disabled = false;
       } catch (err){
         console.error('ERRO DECRYPT', err);
-        alert('FALHA AO DECRIPTAR - SENHA OU CONTEUDO INVALIDO');
+        alert('FALHA AO DECRIPT - SENHA OU CONTEUDO INVALIDO');
       } finally {
         const btn = document.getElementById('btnDecrypt');
-        btn.disabled = false; btn.textContent = 'DECRIPTAR';
+        btn.disabled = false; btn.textContent = 'DECRIPT';
       }
     });
 
@@ -313,21 +326,21 @@
       try{
         const current = decOutEl.textContent;
         const newPw = passDecEl.value;
-        if(!current){ alert('NAO HA TEXTO PRA RE-CRIPTOGRAFAR'); return; }
-        if(!newPw){ alert('INFORME UMA SENHA PRA A NOVA CRIPTOGRAFIA'); return; }
+        if(!current){ alert('NAO HA TEXTO PRA RE-CRIPTAR'); return; }
+        if(!newPw){ alert('INFORME UMA SENHA PRA NOVA CRIPT'); return; }
         const btn = document.getElementById('btnReEncrypt');
-        btn.disabled = true; btn.textContent = 'RE-CRIPTOGRAFANDO...';
+        btn.disabled = true; btn.textContent = 'RE-CRIPTANDO ...';
         const newEnc = await encryptText(current, newPw);
         document.getElementById('cipherIn').value = newEnc;
         encOutEl.textContent = newEnc;
         document.getElementById('btnDownloadEnc').disabled = false;
         document.getElementById('btnCopyEnc').disabled = false;
-        alert('RE-CRIPTOGRAFADO E COLOCADO NO CAMPO DE SAIDA');
+        alert('RE-CRIPTADO E COLOCADO NO CAMPO DE SAIDA');
       }catch(e){
-        alert('ERRO AO RE-CRIPTOGRAFAR');
+        alert('ERRO AO RE-CRIPTAR');
       }finally{
         const btn = document.getElementById('btnReEncrypt');
-        btn.disabled = false; btn.textContent = 'RE-CRIPTOGRAFAR';
+        btn.disabled = false; btn.textContent = 'RE-CRIPTAR';
       }
     });
 
