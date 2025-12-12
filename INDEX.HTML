@@ -311,7 +311,7 @@
     </div>
 
     <div class="RHAONE">
-       RHAONE MOAJ - 2025-12-11_221722
+       RHAONE MOAJ - 2025-12-12_074012
       <br>
 
       <span style="font-size:10px;color:#CCCC00;">
@@ -572,44 +572,3 @@
 </body>
 
 </html>
-
-<script>
-window.addEventListener('DOMContentLoaded',()=>{
-  const encOutEl=document.getElementById('encOut');
-  const decOutEl=document.getElementById('decOut');
-  const passDecEl=document.getElementById('passDec');
-  const btnCopyEnc=document.getElementById('btnCopyEnc');
-  if(btnCopyEnc){
-    btnCopyEnc.addEventListener('click',()=>{
-      navigator.clipboard.writeText(encOutEl.textContent)
-        .then(()=>popup_certo('TEXTO COPIADO'),
-              ()=>popup_errado('FALHA AO COPIAR'));
-    });
-  }
-  const btnReEncrypt=document.getElementById('btnReEncrypt');
-  if(btnReEncrypt){
-    btnReEncrypt.addEventListener('click',async()=>{
-      const current = decOutEl.textContent || '';
-      const newPw = passDecEl.value || '';
-      if(!current){ popup_errado('NAO HA TEXTO PRA RE-CRIPTAR'); return; }
-      if(!newPw){ popup_errado('FALTOU A SENHA'); return; }
-      btnReEncrypt.disabled=true;
-      btnReEncrypt.textContent='RE-CRIPTANDO ...';
-      try{
-        const newEnc = await encryptText(current,newPw);
-        const cipherInEl=document.getElementById('cipherIn');
-        if(cipherInEl) cipherInEl.value=newEnc;
-        encOutEl.textContent=newEnc;
-        document.getElementById('btnDownloadEnc').disabled=false;
-        document.getElementById('btnCopyEnc').disabled=false;
-        popup_certo('RE-CRIPTADO E COLOCADO NO CAMPO DE SAIDA');
-      }catch(e){
-        popup_errado('ERRO AO RE-CRIPTAR');
-      }finally{
-        btnReEncrypt.disabled=false;
-        btnReEncrypt.textContent='RE-CRIPTAR';
-      }
-    });
-  }
-});
-</script>
