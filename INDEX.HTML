@@ -356,16 +356,14 @@
 
     function scrollAdjEnc(){
       const sec = document.getElementById('sec-enc-scroll');
-      sec.scrollIntoView({behavior:'smooth'});
-      setTimeout(()=>{ window.scrollBy(0, -140); }, 350);
+      const top = sec.getBoundingClientRect().top + window.scrollY - 140;
+      window.scrollTo({ top: top, behavior:'smooth' });
     }
 
     function scrollAdjDec(){
       const sec = document.getElementById('sec-dec-scroll');
-      sec.scrollIntoView({behavior:'smooth'});
-      <!-- setTimeout(()=>{ window.scrollBy(0, 0); }, 300); -->
-      <!-- setTimeout(()=>{ window.scrollBy(0, 140); }, 250); -->
-      setTimeout(()=>{ window.scrollBy(0, 140); }, 350);
+      const top = sec.getBoundingClientRect().top + window.scrollY - 140;
+      window.scrollTo({ top: top, behavior:'smooth' });
     }
 
   </script>
