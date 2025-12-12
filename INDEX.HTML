@@ -125,7 +125,6 @@
     .RHAONE {
       color:#AAAAAA;
       background:#070721;
-      padding:20px;
       text-align:center;
       font-size: 10px;
      }
@@ -143,42 +142,72 @@
       margin-left:8px;
     }
 
+    @keyframes piscaSenha {
+      0%   { background:#000088; color:#AAAAAA; }
+      50%  { background:#880000; color:#FFFF00; }
+      100% { background:#000088; color:#AAAAAA; }
+    }
+
+    .piscar {
+      animation: piscaSenha 0.6s linear infinite;
+    }
+
+    /* CSS - SUBSTITUA O TEU BLOCO #popup_msg_errado POR ESTE */
+    #popup_msg_errado{
+      position:fixed;
+      top:50%;
+      left:50%;
+      transform:translate(-50%,-50%);
+      background:#700000;
+      color:#C8A000;
+      border:3px solid #E00038;
+      padding:10px 18px;
+      border-radius:10px;
+      font-weight:bold;
+      text-align:center;
+      display:none;
+      z-index:2147483647;
+      pointer-events:auto;
+      opacity:0;
+      transition:opacity 220ms ease;
+      max-width:90%;
+      box-sizing:border-box;
+    }
+
+    #popup_msg_certo {                  
+      position:fixed;
+      top:50%;
+      left:50%;
+      transform:translate(-50%,-50%);
+      background:#003800;
+      background:#000077;
+      color:#C87800;
+      color:#C8A000;
+      border:3px solid #E000E0;
+      border:3px solid #E00038;
+      border:3px solid #00FF38;
+      border:3px solid #0000FF;
+      padding:10px 18px;
+      border-radius:10px;
+      font-weight:bold;
+      text-align:center;
+      display:none;
+      z-index:2147483647;
+      pointer-events:auto;
+      opacity:0;
+      transition:opacity 220ms ease;
+      max-width:90%;
+      box-sizing:border-box;
+    }
+
   </style>
 
 </head>
 
 <body>
 
-<!-- POPUP AUTOMATICO -->
-<style>
-#popup-msg{
-  position:fixed;
-  top:20px;
-  left:50%;
-  transform:translateX(-50%);
-  background:#000044;
-  color:#FFFF55;
-  border:3px solid #FFAA00;
-  padding:10px 18px;
-  border-radius:10px;
-  font-weight:bold;
-  text-align:center;
-  display:none;
-  z-index:9999;
-}
-</style>
-
-<div id="popup-msg"></div>
-
-<script>
-function popup(msg){
-  const box=document.getElementById('popup-msg');
-  box.innerText=msg;
-  box.style.display='block';
-  setTimeout(()=>{ box.style.display='none'; },2500);
-}
-</script>
-
+<div id="popup_msg_errado"></div>
+<div id="popup_msg_certo"></div>
 
   <div class="wrap">
 
@@ -251,8 +280,8 @@ function popup(msg){
 
       <div class="actions">
         <button id="btnDecrypt"   style="background:#000077;color:#006BC5;font-weight:bold;text-shadow:0 0 6px #400000;border:3px solid #0000FF;border-radius:8px" onclick="scrollToSection('sec-enc')">DECRIP</button>
-        <button id="btnCopyDec"   style="background:#000077;color:#006BC5;font-weight:bold;text-shadow:0 0 6px #400000;border:3px solid #0000FF;border-radius:8px" onclick="scrollToSection('sec-enc')" disabled>COPIAR</button>
-        <button id="btnReEncrypt" style="background:#000077;color:#006BC5;font-weight:bold;text-shadow:0 0 6px #400000;border:3px solid #0000FF;border-radius:8px" onclick="scrollToSection('sec-enc')" disabled>RECRIP</button>
+        <!-- button id="btnCopyDec"   style="background:#000077;color:#006BC5;font-weight:bold;text-shadow:0 0 6px #400000;border:3px solid #0000FF;border-radius:8px" onclick="scrollToSection('sec-enc')" disabled>COPIAR</button -->
+        <!-- button id="btnReEncrypt" style="background:#000077;color:#006BC5;font-weight:bold;text-shadow:0 0 6px #400000;border:3px solid #0000FF;border-radius:8px" onclick="scrollToSection('sec-enc')" disabled>RECRIP</button -->
       </div>
 
       <div style="margin-top:16px;margin-bottom:10px;display:flex;align-items:center;gap:24px">
@@ -260,8 +289,23 @@ function popup(msg){
           TEXTO DECRIPTADO
         </span>
       </div>
-      <div id="encOut" class="output"></div>
+      <div id="decOut" class="output"></div>
 
+    </div>
+
+    <!-- BOTAO LIMPAR CAMPOS -->
+    <div style="text-align:center;margin-top:30px;margin-bottom:40px;">
+      <button onclick="clearAllFields()" style="
+        background:#000077;
+        color:#006BC5;
+        border:3px solid #0000FF;
+        border-radius:8px;
+        padding:10px 20px;
+        font-weight:bold;
+        text-shadow:0 0 6px #400000;
+      ">
+        LIMPAR CAMPOS
+      </button>
     </div>
 
     <div class="RHAONE">
@@ -306,9 +350,19 @@ function popup(msg){
     if(toggleDec) toggleDec.addEventListener('change',()=>{ passDecEl.type = toggleDec.checked ? 'text':'password'; });
 
     document.getElementById('btnEncrypt').addEventListener('click', async ()=>{
-      try{
-        if(!plainEl.value){ alert('ESCREVA A MENSAGEM PRA CRIPT'); return; }
-        if(!passEncEl.value){ alert('FALTOU A SENHA'); return; }
+
+      try {
+
+        if (!plainEl.value){ 
+          popup_errado ('FALTOU A MENSAGEM PRA CRIPT'); 
+          return; 
+        }
+
+        if (!passEncEl.value) { 
+          popup_errado ('FALTOU A SENHA'); 
+          return; 
+        }
+
         const btn = document.getElementById('btnEncrypt');
         btn.disabled = true; btn.textContent = 'PROCESSANDO...';
         const out = await encryptText(plainEl.value, passEncEl.value);
@@ -317,7 +371,7 @@ function popup(msg){
         document.getElementById('btnCopyEnc').disabled = false;
       }catch(err){
         console.error('ERRO ENCRYPT', err);
-        alert('ERRO AO CRIPTAR: ' + (err && err.message));
+        popup_errado ('ERRO AO CRIPTAR: ' + (err && err.message));
       }finally{
         const btn = document.getElementById('btnEncrypt');
         btn.disabled = false; btn.textContent = 'CRIPTAR';
@@ -330,13 +384,27 @@ function popup(msg){
       const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'MENSAGEM_CRIPTADA.TXT'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(a.href);
     });
 
-    document.getElementById('btnCopyEnc').addEventListener('click', ()=> navigator.clipboard.writeText(encOutEl.textContent).then(()=>alert('TEXTO COPIADO'), ()=>alert('FALHA AO COPIAR')));
+  // --- INI - BOTAO COPIAR SAIDA CRIPT (SEGURANCA: CHECA SE ELEMENTOS EXISTEM)
+    <!-- document.getElementById('btnCopyEnc').addEventListener('click', ()=> navigator.clipboard.writeText(encOutEl.textContent).then(()=>popup_certo ('TEXTO COPIADO'), ()=>popup_errado ('FALHA AO COPIAR'))); -->
+
+    const btnCopyEnc = document.getElementById('btnCopyEnc');
+
+    if(btnCopyEnc && encOutEl){
+      btnCopyEnc.addEventListener('click', ()=> {
+        const text = encOutEl.textContent || '';
+        if(!navigator.clipboard){ popup('FALHA AO COPIAR'); return; }
+        navigator.clipboard.writeText(text)
+          .then(()=> popup('TEXTO COPIADO'))
+          .catch(()=> popup('FALHA AO COPIAR'));
+      });
+    }
+  // --- FIN - BOTAO COPIAR SAIDA CRIPT (SEGURANCA: CHECA SE ELEMENTOS EXISTEM)
 
     document.getElementById('btnDecrypt').addEventListener('click', async ()=>{
       try {
         const data = (document.getElementById('cipherIn').value || '');
-        if(!data){ alert('COLE AQUI A MENS CRIPT'); return; }
-        if(!passDecEl.value){ alert('FALTOU A SENHA'); return; }
+        if(!data){ popup_errado ('COLE A MENS CRIPTADA ABAIXO'); return; }
+        if(!passDecEl.value){ popup_errado ('FALTOU A SENHA'); return; }
         const btn = document.getElementById('btnDecrypt');
         btn.disabled = true; btn.textContent = 'PROCESSANDO ...';
         const out = await decryptText(data, passDecEl.value);
@@ -345,36 +413,50 @@ function popup(msg){
         document.getElementById('btnReEncrypt').disabled = false;
       } catch (err){
         console.error('ERRO DECRYPT', err);
-        alert('FALHA AO DECRIPT - SENHA OU CONTEUDO INVALIDO');
+        popup_errado ('FALHA AO DECRIPT - SENHA OU CONTEUDO INVALIDO');
       } finally {
         const btn = document.getElementById('btnDecrypt');
         btn.disabled = false; btn.textContent = 'DECRIPT';
       }
     });
 
-    document.getElementById('btnCopyDec').addEventListener('click', ()=> navigator.clipboard.writeText(decOutEl.textContent).then(()=>alert('TEXTO COPIADO'), ()=>alert('FALHA AO COPIAR')));
+    document.getElementById('btnCopyDec').addEventListener('click',()=>navigator.clipboard.writeText(decOutEl.textContent).then(()=>popup_certo ('TEXTO COPIADO'),()=>popup_errado ('FALHA AO COPIAR')));
 
-    document.getElementById('btnReEncrypt').addEventListener('click', async ()=>{
-      try{
-        const current = decOutEl.textContent;
-        const newPw = passDecEl.value;
-        if(!current){ alert('NAO HA TEXTO PRA RE-CRIPTAR'); return; }
-        if(!newPw){ alert('INFORME UMA SENHA PRA NOVA CRIPT'); return; }
-        const btn = document.getElementById('btnReEncrypt');
-        btn.disabled = true; btn.textContent = 'RE-CRIPTANDO ...';
-        const newEnc = await encryptText(current, newPw);
-        document.getElementById('cipherIn').value = newEnc;
-        encOutEl.textContent = newEnc;
-        document.getElementById('btnDownloadEnc').disabled = false;
-        document.getElementById('btnCopyEnc').disabled = false;
-        alert('RE-CRIPTADO E COLOCADO NO CAMPO DE SAIDA');
-      }catch(e){
-        alert('ERRO AO RE-CRIPTAR');
-      }finally{
-        const btn = document.getElementById('btnReEncrypt');
-        btn.disabled = false; btn.textContent = 'RE-CRIPTAR';
-      }
-    });
+    // BOTAO RE-ENCRYPT (SEGURANCA: CHECA decOutEl e passDecEl)
+    const btnReEncrypt = document.getElementById('btnReEncrypt');
+
+    if(btnReEncrypt){
+      btnReEncrypt.addEventListener('click', async ()=>{
+        try{
+          const current = (decOutEl && decOutEl.textContent) || '';
+          const newPw = (passDecEl && passDecEl.value) || '';
+          if(!current){ popup('NAO HA TEXTO PRA RE-CRIPTAR'); return; }
+          if(!newPw){ popup('FALTOU A SENHA'); return; }
+
+          btnReEncrypt.disabled = true;
+          btnReEncrypt.textContent = 'RE-CRIPTANDO ...';
+
+          const newEnc = await encryptText(current, newPw);
+
+          const cipherInEl = document.getElementById('cipherIn');
+          if(cipherInEl) cipherInEl.value = newEnc;
+          if(encOutEl) encOutEl.textContent = newEnc;
+
+          const btnDownloadEnc = document.getElementById('btnDownloadEnc');
+          const btnCopyEncLocal = document.getElementById('btnCopyEnc');
+          if(btnDownloadEnc) btnDownloadEnc.disabled = false;
+          if(btnCopyEncLocal) btnCopyEncLocal.disabled = false;
+
+          popup('RE-CRIPTADO E COLOCADO NO CAMPO DE SAIDA');
+        }catch(e){
+          console.error('ERRO RE-ENCRYPT', e);
+          popup('ERRO AO RE-CRIPTAR');
+        }finally{
+          btnReEncrypt.disabled = false;
+          btnReEncrypt.textContent = 'RE-CRIPTAR';
+        }
+      });
+    }
 
     document.addEventListener('keydown',e=>{
       if(
@@ -397,47 +479,178 @@ function popup(msg){
       window.scrollTo({ top: top, behavior:'smooth' });
     }
 
+    function clearAllFields(){
+
+      const plain = document.getElementById('plain');
+      const cipherOut = document.getElementById('cipherOut');
+      const passEnc = document.getElementById('passEnc');
+
+      const cipherIn = document.getElementById('cipherIn');
+      const decOut = document.getElementById('decOut');
+      const passDec = document.getElementById('passDec');
+
+      if(plain) plain.value='';
+      if(cipherOut) cipherOut.value='';
+      if(passEnc) passEnc.value='';
+
+      if(cipherIn) cipherIn.value='';
+      if(decOut) decOut.value='';
+      if(passDec) passDec.value='';
+
+      popup_certo ('CAMPOS LIMPADOS');
+
+    }
+
+    /* JS - SUBSTITUA A FUNCAO popup_errado EXISTENTE POR ESTA VERSAO */
+    /* OBS: GARANTE QUE O <div id="popup_msg_errado"></div> ESTEJA DIRETO NO <body> */
+    function popup_errado(msg){
+      const box = document.getElementById('popup_msg_errado');
+      if(!box) return;
+
+      // DEFINICOES INICIAIS; NAO DAR FOCUS NO BOX PARA EVITAR ROLAGEM
+      box.innerText = msg;
+      box.setAttribute('aria-hidden','false');
+      box.style.display = 'block';
+      box.style.opacity = '0';
+
+      // FORCAR APARECIMENTO SUAVE SEM FOCUS
+      requestAnimationFrame(()=>{ box.style.opacity = '1'; });
+
+      // FECHAR AUTOMATICAMENTE APOS 2500ms
+      const hideTimer = setTimeout(()=>{ 
+        box.style.opacity = '0'; 
+        setTimeout(()=>{ 
+          box.style.display = 'none'; 
+          box.setAttribute('aria-hidden','true');
+        }, 240);
+      }, 2500);
+
+      // CLIQUE NO BOX FECHA IMEDIATAMENTE, SEM DAR FOCUS
+      box.onclick = ()=>{
+        clearTimeout(hideTimer);
+        box.style.opacity = '0';
+        setTimeout(()=>{ box.style.display='none'; box.setAttribute('aria-hidden','true'); }, 240);
+      };
+    }
+
+    /* JS - SUBSTITUA A FUNCAO popup_errado EXISTENTE POR ESTA VERSAO */
+    /* OBS: GARANTE QUE O <div id="popup_msg_errado"></div> ESTEJA DIRETO NO <body> */
+    function popup_certo (msg){
+      const box = document.getElementById('popup_msg_certo');
+      if(!box) return;
+
+      // DEFINICOES INICIAIS; NAO DAR FOCUS NO BOX PARA EVITAR ROLAGEM
+      box.innerText = msg;
+      box.setAttribute('aria-hidden','false');
+      box.style.display = 'block';
+      box.style.opacity = '0';
+
+      // FORCAR APARECIMENTO SUAVE SEM FOCUS
+      requestAnimationFrame(()=>{ box.style.opacity = '1'; });
+
+      // FECHAR AUTOMATICAMENTE APOS 2500ms
+      const hideTimer = setTimeout(()=>{ 
+        box.style.opacity = '0'; 
+        setTimeout(()=>{ 
+          box.style.display = 'none'; 
+          box.setAttribute('aria-hidden','true');
+        }, 240);
+      }, 2500);
+
+      // CLIQUE NO BOX FECHA IMEDIATAMENTE, SEM DAR FOCUS
+      box.onclick = ()=>{
+        clearTimeout(hideTimer);
+        box.style.opacity = '0';
+        setTimeout(()=>{ box.style.display='none'; box.setAttribute('aria-hidden','true'); }, 240);
+      };
+    }
+
+    // COLE ISTO APÓS AS FUNCOES encryptText/decryptText, OU DENTRO DE DOMCONTENTLOADED
+    window.addEventListener('DOMContentLoaded', ()=>{
+
+      // ELEMENTOS
+      const encOutEl  = document.getElementById('encOut');   // saida cript
+      const decOutEl  = document.getElementById('decOut');   // saida decript -> CONFIRA QUE EXISTE NO HTML
+      const passDecEl = document.getElementById('passDec');
+      const passEncEl = document.getElementById('passEnc');
+
+      // BOTOES
+      const btnCopyEnc   = document.getElementById('btnCopyEnc');
+      const btnCopyDec   = document.getElementById('btnCopyDec');
+      const btnReEncrypt = document.getElementById('btnReEncrypt');
+
+      // FUNCAO AUXILIAR PARA COPIAR (trata disponibilidade)
+      async function safeCopy(text){
+        if(!navigator.clipboard) return false;
+        try{
+          await navigator.clipboard.writeText(text);
+          return true;
+        }catch(e){
+          return false;
+        }
+      }
+
+      // COPIAR SAIDA CRIPT
+      if(btnCopyEnc){
+        btnCopyEnc.addEventListener('click', async ()=>{
+          const text = (encOutEl && encOutEl.textContent) || '';
+          if(!text){ popup_errado('NAO HA TEXTO PRA COPIAR'); return; }
+          const ok = await safeCopy(text);
+          if(ok) popup_certo('TEXTO COPIADO');
+          else    popup_errado('FALHA AO COPIAR');
+        });
+      }
+
+      // COPIAR SAIDA DECRIPT
+      if(btnCopyDec){
+        btnCopyDec.addEventListener('click', async ()=>{
+          const text = (decOutEl && decOutEl.textContent) || '';
+          if(!text){ popup_errado('NAO HA TEXTO PRA COPIAR'); return; }
+          const ok = await safeCopy(text);
+          if(ok) popup_certo('TEXTO COPIADO');
+          else    popup_errado('FALHA AO COPIAR');
+        });
+      }
+
+      // RE-ENCRYPT (pega texto de decOut, re-cripta com senha de passDec, coloca em cipherIn e em encOut)
+      if(btnReEncrypt){
+        btnReEncrypt.addEventListener('click', async ()=>{
+          try{
+            const current = (decOutEl && decOutEl.textContent) || '';
+            const newPw   = (passDecEl && passDecEl.value) || '';
+            if(!current){ popup_errado('NAO HA TEXTO PRA RE-CRIPTAR'); return; }
+            if(!newPw){ popup_errado('FALTOU A SENHA'); return; }
+
+            btnReEncrypt.disabled = true;
+            btnReEncrypt.textContent = 'RE-CRIPTANDO ...';
+
+            const newEnc = await encryptText(current, newPw);
+
+            const cipherInEl = document.getElementById('cipherIn');
+            if(cipherInEl) cipherInEl.value = newEnc;
+            if(encOutEl)   encOutEl.textContent = newEnc;
+
+            const btnDownloadEnc = document.getElementById('btnDownloadEnc');
+            const btnCopyEncLocal = document.getElementById('btnCopyEnc');
+            if(btnDownloadEnc) btnDownloadEnc.disabled = false;
+            if(btnCopyEncLocal) btnCopyEncLocal.disabled = false;
+
+            popup_certo('RE-CRIPTADO E COLOCADO NO CAMPO DE SAIDA');
+          }catch(err){
+            console.error('ERRO RE-ENCRYPT', err);
+            popup_errado('ERRO AO RE-CRIPTAR');
+          }finally{
+            btnReEncrypt.disabled = false;
+            btnReEncrypt.textContent = 'RE-CRIPTAR';
+          }
+        });
+      }
+
+    });
+
   </script>
-
-
-<!-- BOTAO LIMPAR CAMPOS -->
-<div style="text-align:center;margin-top:30px;margin-bottom:40px;">
-  <button onclick="clearAllFields()" style="
-    background:#550000;
-    color:#FFFF55;
-    border:3px solid #FFAA00;
-    border-radius:8px;
-    padding:10px 20px;
-    font-weight:bold;
-    text-shadow:0 0 6px #400000;
-  ">
-    LIMPAR CAMPOS
-  </button>
-</div>
-
-<script>
-function clearAllFields(){
-
-  const plain = document.getElementById('plain');
-  const cipherOut = document.getElementById('cipherOut');
-  const passEnc = document.getElementById('passEnc');
-
-  const cipherIn = document.getElementById('cipherIn');
-  const decOut = document.getElementById('decOut');
-  const passDec = document.getElementById('passDec');
-
-  if(plain) plain.value='';
-  if(cipherOut) cipherOut.value='';
-  if(passEnc) passEnc.value='';
-
-  if(cipherIn) cipherIn.value='';
-  if(decOut) decOut.value='';
-  if(passDec) passDec.value='';
-
-  popup('CAMPOS LIMPOS');
-}
-</script>
 
 </body>
 
 </html>
+
