@@ -1,5 +1,5 @@
 <!doctype html>
- 
+
 <!-- /media/mint/PR_480_INFORMA/INFORMATICA/LINUX_COMPART/1_LINUX_MINT/BASH/TELEGRAM_CRIPTO_CEL/INDEX.HTML -->
 <!-- https://telegram-crypt.netlify.app -->
 <!-- VERSAO -->
@@ -155,8 +155,18 @@
     .piscar {
       animation: piscaSenha 0.6s linear infinite;
     }
-
-    /* CSS - SUBSTITUA O TEU BLOCO #popup_msg_errado POR ESTE */
+/***
+      position:sticky;
+      top:0;
+      background:#070721;
+      padding:10px;
+      border-radius:10px;
+      margin-bottom:16px;
+      display:flex;
+      gap:10px;
+      z-index:1000;
+      box-shadow:0 2px 0 #070721;
+*/
     #popup_msg_errado{
       position:fixed;
       top:50%;
@@ -178,7 +188,7 @@
       box-sizing:border-box;
     }
 
-    #popup_msg_certo {                  
+    #popup_msg_certo {
       position:fixed;
       top:50%;
       left:50%;
@@ -376,14 +386,14 @@
 
       try {
 
-        if (!plainEl.value){ 
-          popup_errado ('FALTOU A MENSAGEM PRA CRIPT'); 
-          return; 
+        if (!plainEl.value){
+          popup_errado ('FALTOU A MENSAGEM PRA CRIPT');
+          return;
         }
 
-        if (!passEncEl.value) { 
-          popup_errado ('FALTOU A SENHA'); 
-          return; 
+        if (!passEncEl.value) {
+          popup_errado ('FALTOU A SENHA');
+          return;
         }
 
         const btn = document.getElementById('btnEncrypt');
@@ -400,7 +410,7 @@
 
       }finally{
         const btn = document.getElementById('btnEncrypt');
-        btn.disabled = false; btn.textContent = 'CRIPTAR';
+        btn.disabled = false; btn.textContent = 'CRIPT';
       }
 
     });
@@ -566,10 +576,10 @@
       requestAnimationFrame(()=>{ box.style.opacity = '1'; });
 
       // FECHAR AUTOMATICAMENTE APOS 2500ms
-      const hideTimer = setTimeout(()=>{ 
-        box.style.opacity = '0'; 
-        setTimeout(()=>{ 
-          box.style.display = 'none'; 
+      const hideTimer = setTimeout(()=>{
+        box.style.opacity = '0';
+        setTimeout(()=>{
+          box.style.display = 'none';
           box.setAttribute('aria-hidden','true');
         }, 240);
       }, 2500);
@@ -598,10 +608,10 @@
       requestAnimationFrame(()=>{ box.style.opacity = '1'; });
 
       // FECHAR AUTOMATICAMENTE APOS 2500ms
-      const hideTimer = setTimeout(()=>{ 
-        box.style.opacity = '0'; 
-        setTimeout(()=>{ 
-          box.style.display = 'none'; 
+      const hideTimer = setTimeout(()=>{
+        box.style.opacity = '0';
+        setTimeout(()=>{
+          box.style.display = 'none';
           box.setAttribute('aria-hidden','true');
         }, 240);
       }, 2500);
