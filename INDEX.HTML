@@ -2,6 +2,7 @@
  
 <!-- /media/mint/PR_480_INFORMA/INFORMATICA/LINUX_COMPART/1_LINUX_MINT/BASH/TELEGRAM_CRIPTO_CEL/INDEX.HTML -->
 <!-- https://telegram-crypt.netlify.app -->
+<!-- VERSAO -->
 
 <html lang="pt-BR">
 
@@ -311,9 +312,9 @@
       </button>
     </div>
 
-    <div class="RHAONE">
+    <div class="RHAONE"> <!-- VERSAO -->
 
-       RHAONE MOAJ - 2025-12-13_065742
+       RHAONE MOAJ - 2025-12-13_072424
 
       <br>
       <!--
@@ -391,13 +392,17 @@
         encOutEl.textContent = out;
         document.getElementById('btnDownloadEnc').disabled = false;
         document.getElementById('btnCopyEnc').disabled = false;
+        popup_certo ('MENSAGEM CRIPTADA');
+
       }catch(err){
         console.error('ERRO ENCRYPT', err);
         popup_errado ('ERRO AO CRIPTAR: ' + (err && err.message));
+
       }finally{
         const btn = document.getElementById('btnEncrypt');
         btn.disabled = false; btn.textContent = 'CRIPTAR';
       }
+
     });
 
     document.getElementById('btnDownloadEnc').addEventListener('click', ()=>{
@@ -449,15 +454,19 @@
         const btnReEnc = document.getElementById('btnReEncrypt');
         if(btnReEnc) btnReEnc.disabled = false;
 
+        popup_certo ('MENSAGEM DECRIPTADA');
+
       }catch(err){
         console.error('ERRO REAL DE DECRIPT', err);
         popup_errado('ERRO INTERNO AO PROCESSAR A MENSAGEM');
+
       }finally{
         if(btn){
           btn.disabled = false;
           btn.textContent = 'DECRIP';
         }
       }
+
     });
 
     document.getElementById('btnCopyDec').addEventListener('click',()=>navigator.clipboard.writeText(decOutEl.textContent).then(()=>popup_certo ('TEXTO COPIADO'),()=>popup_errado ('FALHA AO COPIAR')));
@@ -521,23 +530,23 @@
 
     function clearAllFields(){
 
+      const encOut = document.getElementById('encOut');
       const plain = document.getElementById('plain');
-      const cipherOut = document.getElementById('cipherOut');
-      const passEnc = document.getElementById('passEnc');
-
       const cipherIn = document.getElementById('cipherIn');
+      const passEnc = document.getElementById('passEncrypt');
+
+      if(plain) plain.value = '';
+      if(cipherIn) cipherIn.value = '';
+      if(passEnc) passEnc.value = '';
+      if(encOut) encOut.textContent = '';
+
       const decOut = document.getElementById('decOut');
-      const passDec = document.getElementById('passDec');
+      const passDec = document.getElementById('passDecrypt');
 
-      if(plain) plain.value='';
-      if(cipherOut) cipherOut.value='';
-      if(passEnc) passEnc.value='';
+      if(decOut) decOut.textContent = '';
+      if(passDec) passDec.value = '';
 
-      if(cipherIn) cipherIn.value='';
-      if(decOut) decOut.value='';
-      if(passDec) passDec.value='';
-
-      popup_certo ('CAMPOS LIMPADOS');
+      popup_certo('CAMPOS LIMPADOS');
 
     }
 
