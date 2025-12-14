@@ -324,7 +324,7 @@
 
     <div class="RHAONE"> <!-- VERSAO -->
 
-       RHAONE MOAJ - 2025-12-14_011906 - CHAT DEEP SEEK
+       RHAONE MOAJ - CHAT DEEP SEEK - 2025-12-14_015708
 
       <br>
       <!--
@@ -566,13 +566,18 @@
       if(!box) return;
 
       // SALVAR A POSIÇÃO ATUAL DO SCROLL ANTES DE MOSTRAR O POPUP
-      const scrollY = window.scrollY;
+      // const scrollY = window.scrollY; 2025-12-14_015638 FUNCINOU SEM ISSO!
       
       box.innerText = msg;
       box.setAttribute('aria-hidden','false');
       box.style.display = 'block';
       box.style.opacity = '0';
-
+/***
+  	// --- INI - CHAT GPT
+      // FORCAR APARECIMENTO SUAVE SEM FOCUS
+      // requestAnimationFrame(()=>{ box.style.opacity = '1'; });
+  	// --- FIN - CHAT GPT
+*/
       // FORÇAR A PÁGINA A MANTER A POSIÇÃO DO SCROLL
       requestAnimationFrame(() => {
         // RESTAURAR POSIÇÃO DO SCROLL ANTES DE MOSTRAR O POPUP
@@ -605,14 +610,19 @@
       if(!box) return;
 
       // SALVAR A POSIÇÃO ATUAL DO SCROLL ANTES DE MOSTRAR O POPUP
-      const scrollY = window.scrollY;
+      // const scrollY = window.scrollY; 2025-12-14_015638 FUNCINOU SEM ISSO!
       
       box.innerText = msg;
       box.setAttribute('aria-hidden','false');
       box.style.display = 'block';
       box.style.opacity = '0';
-
-      // FORÇAR A PÁGINA A MANTER A POSIÇÃO DO SCROLL
+/***
+  	// --- INI - CHAT GPT
+      // FORCAR APARECIMENTO SUAVE SEM FOCUS
+      // requestAnimationFrame(()=>{ box.style.opacity = '1'; });
+  	// --- FIN - CHAT GPT
+*/
+     // FORÇAR A PÁGINA A MANTER A POSIÇÃO DO SCROLL
       requestAnimationFrame(() => {
         // RESTAURAR POSIÇÃO DO SCROLL ANTES DE MOSTRAR O POPUP
         window.scrollTo(0, scrollY);
