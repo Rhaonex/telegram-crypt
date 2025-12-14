@@ -324,7 +324,7 @@
 
     <div class="RHAONE"> <!-- VERSAO -->
 
-       RHAONE MOAJ - 2025-12-13_141525
+       RHAONE MOAJ - 2025-12-14_011447 - CHAT DEEP SEEK
 
       <br>
       <!--
@@ -560,20 +560,25 @@
 
     }
 
-    /* JS - SUBSTITUA A FUNCAO popup_errado EXISTENTE POR ESTA VERSAO */
-    /* OBS: GARANTE QUE O <div id="popup_msg_errado"></div> ESTEJA DIRETO NO <body> */
+  // --- INI - CHAT DEEP SEEK
     function popup_errado(msg){
       const box = document.getElementById('popup_msg_errado');
       if(!box) return;
 
-      // DEFINICOES INICIAIS; NAO DAR FOCUS NO BOX PARA EVITAR ROLAGEM
+      // SALVAR A POSIÇÃO ATUAL DO SCROLL ANTES DE MOSTRAR O POPUP
+      const scrollY = window.scrollY;
+      
       box.innerText = msg;
       box.setAttribute('aria-hidden','false');
       box.style.display = 'block';
       box.style.opacity = '0';
 
-      // FORCAR APARECIMENTO SUAVE SEM FOCUS
-      requestAnimationFrame(()=>{ box.style.opacity = '1'; });
+      // FORÇAR A PÁGINA A MANTER A POSIÇÃO DO SCROLL
+      requestAnimationFrame(() => {
+        // RESTAURAR POSIÇÃO DO SCROLL ANTES DE MOSTRAR O POPUP
+        window.scrollTo(0, scrollY);
+        box.style.opacity = '1';
+      });
 
       // FECHAR AUTOMATICAMENTE APOS 2500ms
       const hideTimer = setTimeout(()=>{
@@ -584,28 +589,35 @@
         }, 240);
       }, 2500);
 
-      // CLIQUE NO BOX FECHA IMEDIATAMENTE, SEM DAR FOCUS
+      // CLIQUE NO BOX FECHA IMEDIATAMENTE
       box.onclick = ()=>{
         clearTimeout(hideTimer);
         box.style.opacity = '0';
-        setTimeout(()=>{ box.style.display='none'; box.setAttribute('aria-hidden','true'); }, 240);
+        setTimeout(()=>{ 
+          box.style.display='none'; 
+          box.setAttribute('aria-hidden','true');
+        }, 240);
       };
     }
 
-    /* JS - SUBSTITUA A FUNCAO popup_errado EXISTENTE POR ESTA VERSAO */
-    /* OBS: GARANTE QUE O <div id="popup_msg_errado"></div> ESTEJA DIRETO NO <body> */
     function popup_certo (msg){
       const box = document.getElementById('popup_msg_certo');
       if(!box) return;
 
-      // DEFINICOES INICIAIS; NAO DAR FOCUS NO BOX PARA EVITAR ROLAGEM
+      // SALVAR A POSIÇÃO ATUAL DO SCROLL ANTES DE MOSTRAR O POPUP
+      const scrollY = window.scrollY;
+      
       box.innerText = msg;
       box.setAttribute('aria-hidden','false');
       box.style.display = 'block';
       box.style.opacity = '0';
 
-      // FORCAR APARECIMENTO SUAVE SEM FOCUS
-      requestAnimationFrame(()=>{ box.style.opacity = '1'; });
+      // FORÇAR A PÁGINA A MANTER A POSIÇÃO DO SCROLL
+      requestAnimationFrame(() => {
+        // RESTAURAR POSIÇÃO DO SCROLL ANTES DE MOSTRAR O POPUP
+        window.scrollTo(0, scrollY);
+        box.style.opacity = '1';
+      });
 
       // FECHAR AUTOMATICAMENTE APOS 2500ms
       const hideTimer = setTimeout(()=>{
@@ -616,13 +628,17 @@
         }, 240);
       }, 2500);
 
-      // CLIQUE NO BOX FECHA IMEDIATAMENTE, SEM DAR FOCUS
+      // CLIQUE NO BOX FECHA IMEDIATAMENTE
       box.onclick = ()=>{
         clearTimeout(hideTimer);
         box.style.opacity = '0';
-        setTimeout(()=>{ box.style.display='none'; box.setAttribute('aria-hidden','true'); }, 240);
+        setTimeout(()=>{ 
+          box.style.display='none'; 
+          box.setAttribute('aria-hidden','true');
+        }, 240);
       };
     }
+  // --- FIN - CHAT DEEP SEEK
 
   </script>
 
