@@ -17,23 +17,23 @@
   <style>
 
     :root{
-      --bg: #070721; /* fundo geral */
-      --fg: #006BC5; /* texto geral */
-      --box-bg: #0000FF; /* fundo caixa mensagem */
-      --box-fg: #AAAAAA; /* texto caixa mensagem */
-      --card-radius: 10px;
-      --gap: 12px;
-      --border-sender: #A80000;
-      --border-dest: #00A800;
+      --bg:#070721;/* fundo geral */
+      --fg:#006BC5;/* texto geral */
+      --box-bg:#0000FF;/* fundo caixa mensagem */
+      --box-fg:#AAAAAA;/* texto caixa mensagem */
+      --card-radius:10px;
+      --gap:12px;
+      --border-sender:#A80000;
+      --border-dest:#00A800;
     }
 
-    .h1-enc {
+    .h1-enc{
       color:#A80000;
       text-align:center;
       width:100%;
     }
 
-    .h1-dec {
+    .h1-dec{
       color:#00A800;
       text-align:center;
       width:100%;
@@ -86,7 +86,7 @@
     .hint{font-size:12px;color:#9ac8ff}
     .flex-between{display:flex;justify-content:space-between;align-items:center}
 
-    .menu {
+    .menu{
       position:sticky;
       top:0;
       background:#070721;
@@ -99,12 +99,12 @@
       box-shadow:0 2px 0 #070721;
     }
 
-    .menu button {
+    .menu button{
       background:#000088;
       color:#9ac8ff;
     }
 
-    .anchor {
+    .anchor{
       scroll-margin-top:90px
     }
 
@@ -126,11 +126,11 @@
       border-radius:10px;
     }
 
-    .RHAONE {
+    .RHAONE{
       color:#AAAAAA;
       background:#070721;
       text-align:center;
-      font-size: 10px;
+      font-size:10px;
      }
 
     #sec-enc{
@@ -141,32 +141,21 @@
       scroll-margin-top:-80px;
     }
 
-    .TEXTO_PADRAO {
+    .TEXTO_PADRAO{
       display:block;
       margin-left:8px;
     }
 
-    @keyframes piscaSenha {
-      0%   { background:#000088; color:#AAAAAA; }
-      50%  { background:#880000; color:#FFFF00; }
-      100% { background:#000088; color:#AAAAAA; }
+    @keyframes piscaSenha{
+      0%{ background:#000088;color:#AAAAAA;}
+      50%{ background:#880000;color:#FFFF00;}
+      100%{ background:#000088;color:#AAAAAA;}
     }
 
-    .piscar {
-      animation: piscaSenha 0.6s linear infinite;
+    .piscar{
+      animation:piscaSenha 0.6s linear infinite;
     }
-/***
-      position:sticky;
-      top:0;
-      background:#070721;
-      padding:10px;
-      border-radius:10px;
-      margin-bottom:16px;
-      display:flex;
-      gap:10px;
-      z-index:1000;
-      box-shadow:0 2px 0 #070721;
-*/
+
     #popup_msg_errado{
       position:fixed;
       top:50%;
@@ -188,19 +177,14 @@
       box-sizing:border-box;
     }
 
-    #popup_msg_certo {
+    #popup_msg_certo{
       position:fixed;
       top:50%;
       left:50%;
       transform:translate(-50%,-50%);
       background:#003800;
-      background:#000077;
-      color:#C87800;
-      color:#C8A000;
-      border:3px solid #E000E0;
-      border:3px solid #E00038;
-      border:3px solid #00FF38;
-      border:3px solid #0000FF;
+      color:#00FFFF;
+      border:3px solid #00A800;
       padding:10px 18px;
       border-radius:10px;
       font-weight:bold;
@@ -241,7 +225,7 @@
         MENSAGEM PRA SER CRIPTADA
       </label>
 
-      <textarea id="plain" style="background:#000088;color:#AAAAAA;border:3px solid #0000FF; placeholder="Digite a mensagem aqui..."></textarea>
+      <textarea id="plain" style="background:#000088;color:#AAAAAA;border:3px solid #0000FF;placeholder="Digite a mensagem aqui..."></textarea>
 
       <div class="row" style="margin-top:8px">
         <div class="half">
@@ -279,7 +263,7 @@
         COLE AQUI A MENS CRIPTADA
       </label>
 
-      <textarea id="cipherIn" style="background:#000088;color:#AAAAAA;border:3px solid #0000FF; placeholder="cole aqui o conteudo recebido ..."></textarea>
+      <textarea id="cipherIn" style="background:#000088;color:#AAAAAA;border:3px solid #0000FF;placeholder="cole aqui o conteudo recebido ..."></textarea>
 
       <div class="row" style="margin-top:8px">
         <div class="half">
@@ -324,7 +308,7 @@
 
     <div class="RHAONE"> <!-- VERSAO -->
 
-       RHAONE MOAJ - CHAT DEEP SEEK - 2025-12-14_015708
+       RHAONE MOAJ - 2025-12-16_174742
 
       <br>
       <!--
@@ -347,7 +331,7 @@
 
   <script>
 
-    function scrollToSection (id) {
+    function scrollToSection(id){
       document.getElementById(id).scrollIntoView({behavior:'smooth'});
     }
 
@@ -367,80 +351,80 @@
 
     const toggleEnc = document.getElementById('toggleShowEnc');
     if(toggleEnc){
-      toggleEnc.addEventListener('change', ()=>{
-        passEncEl.type = toggleEnc.checked ? 'text' : 'password';
+      toggleEnc.addEventListener('change',()=>{
+        passEncEl.type = toggleEnc.checked ? 'text' :'password';
       });
     }
 
     const toggleDec = document.getElementById('toggleShowDec');
     if(toggleDec){
-      toggleDec.addEventListener('change', ()=>{
-        passDecEl.type = toggleDec.checked ? 'text' : 'password';
+      toggleDec.addEventListener('change',()=>{
+        passDecEl.type = toggleDec.checked ? 'text' :'password';
       });
     }
 
-    if(toggleEnc) toggleEnc.addEventListener('change',()=>{ passEncEl.type = toggleEnc.checked ? 'text':'password'; });
-    if(toggleDec) toggleDec.addEventListener('change',()=>{ passDecEl.type = toggleDec.checked ? 'text':'password'; });
+    if(toggleEnc) toggleEnc.addEventListener('change',()=>{ passEncEl.type = toggleEnc.checked ? 'text':'password';});
+    if(toggleDec) toggleDec.addEventListener('change',()=>{ passDecEl.type = toggleDec.checked ? 'text':'password';});
 
-    document.getElementById('btnEncrypt').addEventListener('click', async ()=>{
+    document.getElementById('btnEncrypt').addEventListener('click', async()=>{
 
-      try {
+      try{
 
-        if (!plainEl.value){
-          popup_errado ('FALTOU A MENSAGEM PRA CRIPT');
+        if(!plainEl.value){
+          popup_errado('FALTOU A MENSAGEM PRA CRIPT');
           return;
         }
 
-        if (!passEncEl.value) {
-          popup_errado ('FALTOU A SENHA');
+        if(!passEncEl.value){
+          popup_errado('FALTOU A SENHA');
           return;
         }
 
         const btn = document.getElementById('btnEncrypt');
-        btn.disabled = true; btn.textContent = 'PROCESSANDO...';
+        btn.disabled = true;btn.textContent = 'PROCESSANDO...';
         const out = await encryptText(plainEl.value, passEncEl.value);
         encOutEl.textContent = out;
         document.getElementById('btnDownloadEnc').disabled = false;
         document.getElementById('btnCopyEnc').disabled = false;
-        popup_certo ('MENSAGEM CRIPTADA');
+        popup_certo('MENSAGEM CRIPTADA');
 
       }catch(err){
         console.error('ERRO ENCRYPT', err);
-        popup_errado ('ERRO AO CRIPTAR: ' + (err && err.message));
+        popup_errado('ERRO AO CRIPTAR:' +(err && err.message));
 
       }finally{
         const btn = document.getElementById('btnEncrypt');
-        btn.disabled = false; btn.textContent = 'CRIPT';
+        btn.disabled = false;btn.textContent = 'CRIPT';
       }
 
     });
 
-    document.getElementById('btnDownloadEnc').addEventListener('click', ()=>{
+    document.getElementById('btnDownloadEnc').addEventListener('click',()=>{
       const data = encOutEl.textContent || '';
-      const blob = new Blob([data], {type: 'text/plain;charset=utf-8'});
-      const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'MENSAGEM_CRIPTADA.TXT'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(a.href);
+      const blob = new Blob([data],{type:'text/plain;charset=utf-8'});
+      const a = document.createElement('a');a.href = URL.createObjectURL(blob);a.download = 'MENSAGEM_CRIPTADA.TXT';document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(a.href);
     });
 
-  // --- INI - BOTAO COPIAR SAIDA CRIPT (SEGURANCA: CHECA SE ELEMENTOS EXISTEM)
-    <!-- document.getElementById('btnCopyEnc').addEventListener('click', ()=> navigator.clipboard.writeText(encOutEl.textContent).then(()=>popup_certo ('TEXTO COPIADO'), ()=>popup_errado ('FALHA AO COPIAR'))); -->
+  // --- INI - BOTAO COPIAR SAIDA CRIPT(SEGURANCA:CHECA SE ELEMENTOS EXISTEM)
+    <!-- document.getElementById('btnCopyEnc').addEventListener('click',()=> navigator.clipboard.writeText(encOutEl.textContent).then(()=>popup_certo('TEXTO COPIADO'),()=>popup_errado('FALHA AO COPIAR')));-->
 
     const btnCopyEnc = document.getElementById('btnCopyEnc');
 
     if(btnCopyEnc && encOutEl){
-      btnCopyEnc.addEventListener('click', ()=> {
+      btnCopyEnc.addEventListener('click',()=>{
         const text = encOutEl.textContent || '';
-        if(!navigator.clipboard){ popup('FALHA AO COPIAR'); return; }
+        if(!navigator.clipboard){ popup('FALHA AO COPIAR');return;}
         navigator.clipboard.writeText(text)
           .then(()=> popup('TEXTO COPIADO'))
           .catch(()=> popup('FALHA AO COPIAR'));
       });
     }
-  // --- FIN - BOTAO COPIAR SAIDA CRIPT (SEGURANCA: CHECA SE ELEMENTOS EXISTEM)
+  // --- FIN - BOTAO COPIAR SAIDA CRIPT(SEGURANCA:CHECA SE ELEMENTOS EXISTEM)
 
-    document.getElementById('btnDecrypt').addEventListener('click', async ()=>{
+    document.getElementById('btnDecrypt').addEventListener('click', async()=>{
       let btn;
       try{
-        const data = (document.getElementById('cipherIn').value || '').trim();
+        const data =(document.getElementById('cipherIn').value || '').trim();
         if(!data){
           popup_errado('COLE A MENS CRIPTADA ABAIXO');
           return;
@@ -464,11 +448,12 @@
         const btnReEnc = document.getElementById('btnReEncrypt');
         if(btnReEnc) btnReEnc.disabled = false;
 
-        popup_certo ('MENSAGEM DECRIPTADA');
+        popup_certo('MENSAGEM DECRIPTADA');
 
       }catch(err){
-        console.error('ERRO REAL DE DECRIPT', err);
-        popup_errado('ERRO INTERNO AO PROCESSAR A MENSAGEM');
+//      console.error('ERRO REAL DE DECRIPT', err);
+//      popup_errado('ERRO INTERNO AO PROCESSAR A MENSAGEM');
+        popup_errado('A MENSAGEM NAO ESTA CRIPTADA');
 
       }finally{
         if(btn){
@@ -479,18 +464,18 @@
 
     });
 
-    document.getElementById('btnCopyDec').addEventListener('click',()=>navigator.clipboard.writeText(decOutEl.textContent).then(()=>popup_certo ('TEXTO COPIADO'),()=>popup_errado ('FALHA AO COPIAR')));
+    document.getElementById('btnCopyDec').addEventListener('click',()=>navigator.clipboard.writeText(decOutEl.textContent).then(()=>popup_certo('TEXTO COPIADO'),()=>popup_errado('FALHA AO COPIAR')));
 
-    // BOTAO RE-ENCRYPT (SEGURANCA: CHECA decOutEl e passDecEl)
+    // BOTAO RE-ENCRYPT(SEGURANCA:CHECA decOutEl e passDecEl)
     const btnReEncrypt = document.getElementById('btnReEncrypt');
 
     if(btnReEncrypt){
-      btnReEncrypt.addEventListener('click', async ()=>{
+      btnReEncrypt.addEventListener('click', async()=>{
         try{
-          const current = (decOutEl && decOutEl.textContent) || '';
-          const newPw = (passDecEl && passDecEl.value) || '';
-          if(!current){ popup('NAO HA TEXTO PRA RE-CRIPTAR'); return; }
-          if(!newPw){ popup('FALTOU A SENHA'); return; }
+          const current =(decOutEl && decOutEl.textContent) || '';
+          const newPw =(passDecEl && passDecEl.value) || '';
+          if(!current){ popup('NAO HA TEXTO PRA RE-CRIPTAR');return;}
+          if(!newPw){ popup('FALTOU A SENHA');return;}
 
           btnReEncrypt.disabled = true;
           btnReEncrypt.textContent = 'RE-CRIPTANDO ...';
@@ -519,7 +504,7 @@
 
     document.addEventListener('keydown',e=>{
       if(
-        (e.ctrlKey && ['c','u','s','p'].includes(e.key.toLowerCase()))
+  (e.ctrlKey && ['c','u','s','p'].includes(e.key.toLowerCase()))
         || e.key === 'F12'
       ){
         e.preventDefault();
@@ -529,13 +514,13 @@
     function scrollAdjEnc(){
       const sec = document.getElementById('sec-enc-scroll');
       const top = sec.getBoundingClientRect().top + window.scrollY - 140;
-      window.scrollTo({ top: top, behavior:'smooth' });
+      window.scrollTo({ top:top, behavior:'smooth' });
     }
 
     function scrollAdjDec(){
       const sec = document.getElementById('sec-dec-scroll');
       const top = sec.getBoundingClientRect().top + window.scrollY - 90;
-      window.scrollTo({ top: top, behavior:'smooth' });
+      window.scrollTo({ top:top, behavior:'smooth' });
     }
 
     function clearAllFields(){
@@ -566,7 +551,7 @@
       if(!box) return;
 
       // SALVAR A POSIÇÃO ATUAL DO SCROLL ANTES DE MOSTRAR O POPUP
-      // const scrollY = window.scrollY; 2025-12-14_015638 FUNCINOU SEM ISSO!
+      // const scrollY = window.scrollY;2025-12-14_015638 FUNCINOU SEM ISSO!
       
       box.innerText = msg;
       box.setAttribute('aria-hidden','false');
@@ -575,11 +560,11 @@
 /***
   	// --- INI - CHAT GPT
       // FORCAR APARECIMENTO SUAVE SEM FOCUS
-      // requestAnimationFrame(()=>{ box.style.opacity = '1'; });
+      // requestAnimationFrame(()=>{ box.style.opacity = '1';});
   	// --- FIN - CHAT GPT
 */
       // FORÇAR A PÁGINA A MANTER A POSIÇÃO DO SCROLL
-      requestAnimationFrame(() => {
+      requestAnimationFrame(() =>{
         // RESTAURAR POSIÇÃO DO SCROLL ANTES DE MOSTRAR O POPUP
         window.scrollTo(0, scrollY);
         box.style.opacity = '1';
@@ -595,22 +580,22 @@
       }, 2500);
 
       // CLIQUE NO BOX FECHA IMEDIATAMENTE
-      box.onclick = ()=>{
+      box.onclick =()=>{
         clearTimeout(hideTimer);
         box.style.opacity = '0';
         setTimeout(()=>{ 
-          box.style.display='none'; 
+          box.style.display='none';
           box.setAttribute('aria-hidden','true');
         }, 240);
       };
     }
 
-    function popup_certo (msg){
+    function popup_certo(msg){
       const box = document.getElementById('popup_msg_certo');
       if(!box) return;
 
       // SALVAR A POSIÇÃO ATUAL DO SCROLL ANTES DE MOSTRAR O POPUP
-      // const scrollY = window.scrollY; 2025-12-14_015638 FUNCINOU SEM ISSO!
+      // const scrollY = window.scrollY;2025-12-14_015638 FUNCINOU SEM ISSO!
       
       box.innerText = msg;
       box.setAttribute('aria-hidden','false');
@@ -619,11 +604,11 @@
 /***
   	// --- INI - CHAT GPT
       // FORCAR APARECIMENTO SUAVE SEM FOCUS
-      // requestAnimationFrame(()=>{ box.style.opacity = '1'; });
+      // requestAnimationFrame(()=>{ box.style.opacity = '1';});
   	// --- FIN - CHAT GPT
 */
      // FORÇAR A PÁGINA A MANTER A POSIÇÃO DO SCROLL
-      requestAnimationFrame(() => {
+      requestAnimationFrame(() =>{
         // RESTAURAR POSIÇÃO DO SCROLL ANTES DE MOSTRAR O POPUP
         window.scrollTo(0, scrollY);
         box.style.opacity = '1';
@@ -639,11 +624,11 @@
       }, 2500);
 
       // CLIQUE NO BOX FECHA IMEDIATAMENTE
-      box.onclick = ()=>{
+      box.onclick =()=>{
         clearTimeout(hideTimer);
         box.style.opacity = '0';
         setTimeout(()=>{ 
-          box.style.display='none'; 
+          box.style.display='none';
           box.setAttribute('aria-hidden','true');
         }, 240);
       };
