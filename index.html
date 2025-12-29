@@ -182,9 +182,9 @@
       top:50%;
       left:50%;
       transform:translate(-50%,-50%);
-      background:#005500;
-      color:#007777;
-      border:3px solid #007000;
+      background:#003300;
+      color:#00CCCC;
+      border:2px solid #007700;
       padding:10px 18px;
       border-radius:10px;
       font-weight:bold;
@@ -308,7 +308,7 @@
 
     <div class="RHAONE"> <!-- VERSAO -->
 
-       RHAONE MOAJ - 2025-12-19_134156
+       RHAONE MOAJ - 2025-12-29_011648
 
       <br>
       <!--
@@ -542,7 +542,7 @@
       if(decOut) decOut.textContent = '';
       if(passDec) passDec.value = '';
 
-      popup_certo('CAMPOS LIMPADOS');
+      popup_certo ('CAMPOS LIMPADOS');
 
     }
 
@@ -591,8 +591,10 @@
       };
     }
 
-    function popup_certo(msg){
-      const box = document.getElementById('popup_msg_certo');
+    function popup_certo (msg) {
+
+      const box = document.getElementById ('popup_msg_certo');
+
       if(!box) return;
 
       // SALVAR A POSIÇÃO ATUAL DO SCROLL ANTES DE MOSTRAR O POPUP
